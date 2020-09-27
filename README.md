@@ -2,17 +2,17 @@
 
 This automation framework using Selenium with Java, Junit, Cucumber and Maven under Page Object Model.
 
-###Test Scenario
+### Test Scenario
 Here test two scenarios. 
 1. API endpoint: https://jsonplaceholder.typicode.com/todos
 2. UI Test includes Countdown and Twitter login and https://www.countdown.co.nz/ 
 
-###Way to execute the tests
+### Way to execute the tests
 1. `mvn clean test` (please see note if it doesn't work)
 2. run from `feature` files directly
 3. run `RunCucumberTest` with Junit
 
-###What contains in this project?
+### What contains in this project?
 * It can run with different browsers, also provide an option is Headless webdriver.
  (default by **_chrome_** you can find setting in **_config.properties_**)
 * Hooks (@Before and @After)
