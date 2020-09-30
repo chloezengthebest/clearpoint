@@ -1,17 +1,18 @@
-package base;
+package utils;
 
+import base.TestBase;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
 public class ExtentReportUtil extends TestBase {
 
-    private String fileName;
-    private static String projectPath = System.getProperty("user.dir");
-    public void ExtentReport() {
-        fileName = projectPath + "/src/test/reports/extentReport.html";
+    public static void ExtentReport() {
         //First is to create Extent Report Instance
+        fileName = projectPath + "/src/test/reports/extentReport.html";
+
         ExtentSparkReporter htmlReporter = new ExtentSparkReporter(fileName);
+
         extent = new ExtentReports();
 
         //changed to spark instead
@@ -22,7 +23,7 @@ public class ExtentReportUtil extends TestBase {
         extent.attachReporter(htmlReporter);
     }
 
-    public void FlushReport() {
+    public static void FlushReport() {
         extent.flush();
     }
 }
