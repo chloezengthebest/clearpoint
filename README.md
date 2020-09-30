@@ -24,8 +24,10 @@ Here test two scenarios.
 
 
 ### Note!!!
-1.If  unable to find htmlunitdriver when build, please download 3rd party jar file from `https://github.com/SeleniumHQ/htmlunit-driver/releases`
+htmunitdriver has been removed here. If you want to use htmlunitdriver when build, please download 3rd party jar file from `https://github.com/SeleniumHQ/htmlunit-driver/releases`
 and add to dependencies.
+
+### Features
 
 ```Gherkin 
 @countdown @testEnv
@@ -34,7 +36,7 @@ Feature: This is feature about Website called Countdown
   @chrome
   Scenario: This is close easyEmailSignup page
     Given "Countdown" website
-    When I close "easyEmailSignup"
+    #When I close "easyEmailSignup"
     Then I should in "Countdown" Page
 
   @chrome @headless
@@ -97,7 +99,7 @@ Feature: This is feature about API-Todo
 - [ ] Run in Jenkins
     > can run in docker container
 - [ ] Dynamic extent report with features name and scenarios
-- [ ] Screenshot when test failed
+- [X] Screenshot when test failed
 
 
 #### Author
