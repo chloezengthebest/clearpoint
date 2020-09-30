@@ -1,6 +1,8 @@
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import org.junit.AfterClass;
 import org.junit.runner.RunWith;
+import utils.ExtentReportUtil;
 
 //Junit Test Class
 @RunWith(Cucumber.class)
@@ -14,5 +16,10 @@ import org.junit.runner.RunWith;
 )
 
 public class RunCucumberTest {
+    @AfterClass
+    public static void generateReport() {
+        System.out.println("-------------Generating Extent Report!!-------------");
+        ExtentReportUtil.FlushReport();
+    }
 
 }

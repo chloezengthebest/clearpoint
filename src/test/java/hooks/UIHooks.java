@@ -1,38 +1,36 @@
 package hooks;
 
-import com.aventstack.extentreports.gherkin.model.Feature;
 import base.TestBase;
-import base.ExtentReportUtil;
+import com.aventstack.extentreports.gherkin.model.Feature;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import utils.ExtentReportUtil;
+import utils.ScreenshotUtil;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Properties;
 
 
 public class UIHooks extends TestBase {
-
-    public static Properties p = new Properties();
-    ExtentReportUtil extentReportUtil = new ExtentReportUtil();
-    public static String projectPath = System.getProperty("user.dir");
 
     @Before("@chrome")
     public static void initializeDriver() {
         System.out.println("Initializing Driver!!");
         System.out.println("Initializing Driver!!");
         System.out.println("Initializing Driver!!");
+
         String browserType = p.getProperty("browser");
+
         // Initialize driver
         switch (browserType) {
             case "chrome":
                 System.setProperty("webdriver.chrome.driver", projectPath + "/src/test/java/driver/chromedriver");
                 driver = new ChromeDriver();
+                driver.manage().window().maximize();
                 System.out.println("Driver Type is ::" + driver.toString());
                 break;
             case "chromeHeadless":
@@ -45,29 +43,13 @@ public class UIHooks extends TestBase {
             case "firefox":
                 // Add firefox driver here
                 break;
-            case "headless":
-                driver = new HtmlUnitDriver();
-                System.out.println("Driver Type is ::" + driver.toString());
-                break;
+//            case "headless":
+//                driver = new HtmlUnitDriver();
+//                System.out.println("Driver Type is ::" + driver.toString());
+//                break;
             default:
                 System.out.println("BrowserType is not been support");
         }
-    }
-
-    @After("@chrome")
-    public void closeBrowser() {
-        System.out.println("Closing browser!!!");
-        driver.quit();
-    }
-
-    @After(order = 99)
-    public void generateReport(Scenario scenario) {
-        System.out.println("Generating Extent Report!!");
-        if (scenario.isFailed()) {
-            //Take screenshot logic goes here
-            System.out.println(scenario.getName());
-        }
-        extentReportUtil.FlushReport();
     }
 
     @Before(order = 0)
@@ -77,9 +59,9 @@ public class UIHooks extends TestBase {
         System.out.println("Before all Scenario!");
 
         // Initialize scenario
-        extentReportUtil.ExtentReport();
+        ExtentReportUtil.ExtentReport();
         // create a test
-        feature = extentReportUtil.extent.createTest(Feature.class, "twitter Feature");
+        feature = ExtentReportUtil.extent.createTest(Feature.class, "twitter Feature");
         // create note for scenario
         scenarioDef = feature.createNode(scenario.getName());
 
@@ -93,7 +75,23 @@ public class UIHooks extends TestBase {
         } catch (IOException e2) {
             System.out.println("MSG:: Unable to read config properties:" + e2);
         }
-
     }
 
+    /**
+     * @After(order = int) : This runs in decrements order, means apposite of @Before.
+     * Value 1 would run first and 0 would be after 1.
+     */
+
+    @After("@chrome")
+    public void afterScenario(Scenario scenario) {
+        System.out.println("Taking Screenshot!!");
+        if (scenario.isFailed()) {
+            //Take screenshot when tests failed
+            System.out.println(scenario.getName());
+            String scenarioName = scenario.getName().trim();
+            ScreenshotUtil.takeScreenShot(scenarioName);
+        }
+        System.out.println("Closing browser!!!");
+        driver.quit();
+    }
 }

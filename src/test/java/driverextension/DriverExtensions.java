@@ -1,17 +1,19 @@
 package driverextension;
 
+import base.TestBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfWindowsToBe;
 
-public class DriverExtensions {
-    private static int timeoutInSeconds = 10;
+public class DriverExtensions extends TestBase {
 
-    public static WebElement FindElement(WebDriver driver, By by) {
+    private static final int timeoutInSeconds = 10;
+
+    public static WebElement FindElement(By by) {
+
         if (timeoutInSeconds > 0) {
             // define WebDriver wait
             WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
@@ -23,7 +25,7 @@ public class DriverExtensions {
         return driver.findElement(by);
     }
 
-    public static void SwitchToNewWindow(WebDriver driver, By by) {
+    public static void SwitchToNewWindow(By by) {
 
         // It will return the parent window name as a String
         String originalWindow = driver.getWindowHandle();
@@ -32,7 +34,7 @@ public class DriverExtensions {
         assert driver.getWindowHandles().size() == 1;
 
         //Click the link which opens in a new window
-        WebElement element = FindElement(driver, by);
+        WebElement element = FindElement(by);
         element.click();
 
         // define WebDriver wait

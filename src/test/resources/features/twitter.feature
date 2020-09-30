@@ -9,6 +9,6 @@ Feature: This is feature about Website called Twitter
 
     Examples:
       | username               | password |
-      | chloezeng310@gmail.com | password |
+      | tester@gmail.com       | password |
       | chloezeng310@gmail.com | invalid  |
 

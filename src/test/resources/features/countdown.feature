@@ -4,7 +4,7 @@ Feature: This is feature about Website called Countdown
   @chrome
   Scenario: This is close easyEmailSignup page
     Given "Countdown" website
-    When I close "easyEmailSignup"
+    #When I close "easyEmailSignup"
     Then I should in "Countdown" Page
 
   @chrome @headless

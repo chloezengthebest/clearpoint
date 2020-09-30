@@ -1,15 +1,15 @@
 package stepDefinitions;
 
-import com.aventstack.extentreports.GherkinKeyword;
-import driverextension.DriverExtensions;
 import base.TestBase;
-import pages.*;
+import com.aventstack.extentreports.GherkinKeyword;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import pages.HomePageCountdown;
+import pages.LoginPageCountdown;
+import pages.LoginPageTwitter;
 
-import static pages.PageObjects.*;
 import static org.junit.Assert.assertTrue;
 
 public class UISteps extends TestBase {
@@ -30,8 +30,7 @@ public class UISteps extends TestBase {
             case "TwitterLogin":
                 driver.get("https://twitter.com/login?lang=en");
                 LoginPageTwitter loginPageTwitter = new LoginPageTwitter();
-                boolean a = loginPageTwitter.loginPageDisplay();
-                assertTrue(a);
+                assertTrue(loginPageTwitter.loginPageDisplay());
                 break;
             default:
                 System.out.println("Website is not been support Yet:: ----" + website);
@@ -51,10 +50,12 @@ public class UISteps extends TestBase {
                 // action
                 homePageCountdown.CloseEmailSignUpWindow();
                 break;
+            case "otherWindow":
+                //close other window logic goes here
+                break;
             default:
                 System.out.println("Window is not been support Yet:: ----" + window);
         }
-
     }
 
     @Then("I should in {string} Page")
@@ -65,6 +66,9 @@ public class UISteps extends TestBase {
             case "Countdown":
                 HomePageCountdown homePageCountdown = new HomePageCountdown();
                 assertTrue("HomePage not been loaded", homePageCountdown.VerifyHomePageDisplayed());
+                break;
+            case "otherPage":
+                /* other page logic added here */
                 break;
             default:
                 System.out.println("Page is not been support Yet:: ----" + page);

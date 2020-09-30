@@ -18,4 +18,5 @@ public class PageObjects {
     public static By password_twitter = By.xpath("//input[@name='session[password]' and @type='password']");
     public static By invalidLoginErrorFlag_twitter = By.xpath("//span[contains(text(),'you entered did not match our records.')]");
     public static By loginTitle_twitter = By.xpath("//span[contains(text(),'Log in to Twitter')]");
+    public static By unusualLoginErrorFlag_twitter = By.xpath("//span[contains(text(),'There was unusual login activity on your account.')]");
 }
